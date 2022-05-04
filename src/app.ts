@@ -10,15 +10,16 @@ app.use(express.json())
 
 
 //routes
-
 try {
-    app.use('/api/v1', routes_1.default);
+    app.use('/api/v1',apiRouter)
 } catch (error) {
     app.use((_req, res) => {
-        res.status(401).json({
-            message: "error: ".error
+
+        res.status(404).json({
+            message: "error: "+error
         })
-    })
+        
+        })
 }
 
 
@@ -27,10 +28,6 @@ app.use((_req, res) => {
 res.status(404).json({
     message: "not found"
 })
-
-
-
-
 
 })
 
