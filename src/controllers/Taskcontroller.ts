@@ -10,6 +10,8 @@ import { UserTokenPayload } from "../models/dto/userDTO"
 export default class taskcontroller {
   public readonly getAll = async (req: Request, res: Response) => {
     const iduser= req.user as UserTokenPayload
+    console.log(iduser.sub+"xxxxxxxx")
+    console.log("xxxxxxxx")
     const repositorie = new taskrepositorie(iduser.sub)
     const tasks: taskDTO []  = await repositorie.FindAll()
     res.json(tasks)

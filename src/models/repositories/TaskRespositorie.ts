@@ -11,7 +11,9 @@ export default class taskrepositorie{
     }
 
     public readonly FindAll = async (): Promise<taskDTO[]> => {
+       
         const task = await prisma.taskx.findMany({
+            
             where: {
                 userID:this.userId
             }
