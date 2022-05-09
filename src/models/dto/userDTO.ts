@@ -1,8 +1,8 @@
 export interface BaseUserDTO{
 firsName: string,
 lastName: string,
-email:    string
-
+email:    string,
+level:   string
 }
 
 export interface UserDTO extends BaseUserDTO{
@@ -26,6 +26,6 @@ export interface UserTokenPayload {
 sub:number,
 email: string,
 exp: number,
-iat: number
-
+iat: number,
+level: string
 }

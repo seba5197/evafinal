@@ -9,10 +9,12 @@ import { UserTokenPayload } from "../models/dto/userDTO"
 
 export default class taskcontroller {
   public readonly getAll = async (req: Request, res: Response) => {
+    console.log("empezando a buscar todo")
     const iduser= req.user as UserTokenPayload
+    
     console.log(iduser.sub+"xxxxxxxx")
-    console.log("xxxxxxxx")
-    const repositorie = new taskrepositorie(iduser.sub)
+    console.log( iduser.level)
+    const repositorie = new taskrepositorie(iduser.sub, iduser.level)
     const tasks: taskDTO []  = await repositorie.FindAll()
     res.json(tasks)
   }
@@ -21,15 +23,30 @@ export default class taskcontroller {
   public readonly getById = async  (req: Request, res: Response)  => {
     const { id }= req.params
     const iduser= req.user as UserTokenPayload
-    const repositorie = new taskrepositorie(iduser.sub)
+    const repositorie = new taskrepositorie(iduser.sub, iduser.level)
     const task = await repositorie.FindbyId(parseInt(id))
     res.json(task)
   }
 
+  public readonly status = async  (req: Request, res: Response)  => {
+    const { done }= req.params
+    
+    const iduser= req.user as UserTokenPayload
+    const repositorie = new taskrepositorie(iduser.sub, iduser.level)
+    const task = await repositorie.FindbyId(parseInt(done))
+    console.log("buscando tarea")
+    if(task?.done==true){
+      res.json({message:"Esta tarea esta terminada"})
+    }
+    if(task?.done==false){
+      res.json({message:"Esta tarea no esta terminada"})
+    }
+    res.json({message:"Esta tarea no se encontro o no corresponde a este usuario"})
+  }
 
   public readonly Create = async  (req: Request, res: Response)  => {
     const iduser= req.user as UserTokenPayload
-    const repositorie = new taskrepositorie(iduser.sub)
+    const repositorie = new taskrepositorie(iduser.sub, iduser.level)
     const task = req.body as CreatetaskDTO
     try {
       await createTaskSchema.validateAsync(task)
@@ -67,7 +84,7 @@ export default class taskcontroller {
       res.status(400).json({message: error.message})
     }
     const iduser= req.user as UserTokenPayload
-    const repositorie = new taskrepositorie(iduser.sub)
+    const repositorie = new taskrepositorie(iduser.sub, iduser.level)
       try {
         await repositorie.Update (parseInt(id), task)
         res.sendStatus(204)
@@ -81,7 +98,7 @@ export default class taskcontroller {
     const { id }= req.params
     
     const iduser= req.user as UserTokenPayload
-    const repositorie = new taskrepositorie(iduser.sub)
+    const repositorie = new taskrepositorie(iduser.sub, iduser.level)
     try {
       await repositorie.Delete (parseInt(id))
       res.sendStatus(204)

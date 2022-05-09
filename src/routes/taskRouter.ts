@@ -8,7 +8,7 @@ const controller = new taskcontroller()
 
 taskrouter.get('/', controller.getAll)
 taskrouter.get('/:id', controller.getById)
-
+taskrouter.get('/status/:done', controller.status)
 taskrouter.post('/', controller.Create)
 taskrouter.put('/:id', controller.Update)
 taskrouter.delete('/:id', controller.Delete)

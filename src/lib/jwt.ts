@@ -10,7 +10,7 @@ if(!secret){
 export function generateToken (user:UserDTO){
 
     return jwt.sign(
-        {sub: user.id, email: user.email}, 
+        {sub: user.id, email: user.email, level:user.level}, 
     secret,
     {expiresIn: "7d"}
         )

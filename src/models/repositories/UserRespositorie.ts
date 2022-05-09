@@ -76,13 +76,20 @@ export default class userRepositorie{
       
 
     }
-    public readonly Delete = async (id:number) => {
+    public readonly Delete = async (id:number,level:string) => {
+
+        if(level=="admin"){
         await prisma.userx.delete({
             where: {
                 id
             }
 
         })
-        
+        return ("usuario eliminado")
+    }else{
+        const permiso ="no tienes permiso para borrar "
+        return permiso
+    }   
     }
+
 }

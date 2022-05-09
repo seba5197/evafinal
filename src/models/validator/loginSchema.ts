@@ -12,4 +12,5 @@ export const registerUserSchema: Joi.ObjectSchema<CreateUserDTO> = Joi.object().
     lastName: Joi.string().required(),
     email:  Joi.string().required(),
     password: Joi.string().required(),
+    level: Joi.string().required(),
     })

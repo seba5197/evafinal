@@ -6,12 +6,14 @@ firstName: Joi.string().required(),
 lastName: Joi.string().required(),
 email:  Joi.string().required(),
 password: Joi.string().required(),
+level: Joi.string()
 })
 
 export const updateUserSchema: Joi.ObjectSchema<UpdateUserDTO> = Joi.object().keys({
     firstName: Joi.string(),
     lastName: Joi.string(),
     email:  Joi.string(),
-    password: Joi.string()
+    password: Joi.string(),
+    level: Joi.string()
     })
 
