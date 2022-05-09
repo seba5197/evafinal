@@ -7,7 +7,7 @@ lib-cov
 *.pid
 *.gz
 *.swp
-
+node_modules/
 pids
 logs
 results
